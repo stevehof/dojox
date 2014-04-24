@@ -699,8 +699,13 @@ dojox.date.timezone.getAllZones = function(){
 		if(options._tzInfo){
 			// Roll our date to display the correct time according to the
 			// desired offset
+
 			var offset = dateObject.getTimezoneOffset() - options._tzInfo.tzOffset;
 			dateObject = new Date(dateObject.getTime() + (offset * 60 * 1000));
+            var newoffset = dateObject.getTimezoneOffset() - options._tzInfo.tzOffset;
+            if(offset != newoffset){
+                dateObject = new Date(dateObject.getTime() + ((newoffset - offset) * 60 * 1000));
+            }
 		}
 		return oLocaleFmt.call(this, dateObject, options);
 	};
